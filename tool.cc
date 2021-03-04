@@ -14,7 +14,10 @@ int main(int argc, char *argv[])
   { std::cerr << "Deze functie heeft exact 1 argument nodig" << std::endl;
     return -1; }
 
-  while(std::getline(std::cin, input))
-  { std::cout << translate(input, argv[1]) << std::endl; } 
-
+  while(true){
+    std::getline(std::cin, input);
+    if(input == "EOF"){
+      break;
+    }
+  std::cout << translate(input, argv[1]) << std::endl;}
   return 0; }
