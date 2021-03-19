@@ -24,6 +24,7 @@ int main()
     if (std::cin.eof()) return 0; } }      // EOF is een exit
 
 
+
 void new_file() // ToDo: Implementeer volgens specificatie.
 { std::string filename = "";
   std::string line = "";
@@ -45,6 +46,7 @@ void new_file() // ToDo: Implementeer volgens specificatie.
   syscall(SYS_write, fd, ctext, text.size()); }
 
 
+
 void list() // ToDo: Implementeer volgens specificatie.
 { int child = syscall(SYS_fork);
   if(child > 0){
@@ -52,6 +54,7 @@ void list() // ToDo: Implementeer volgens specificatie.
   }else if(child == 0){
     const char* argumenten[4] = {"/bin/ls", "-l", "-a", NULL};
     syscall(SYS_execve, argumenten[0], argumenten, NULL); } }
+
 
 
 void find() // ToDo: Implementeer volgens specificatie.
@@ -89,8 +92,30 @@ void find() // ToDo: Implementeer volgens specificatie.
     const char* argumenten[3] = {"/usr/bin/find", ".", NULL};
     syscall(SYS_execve, argumenten[0], argumenten, NULL); } }
 
+
+
 void seek() // ToDo: Implementeer volgens specificatie.
-{ std::cout << "ToDo: Implementeer hier seek()" << std::endl; }
+{ std::string seek = "seek";
+  const char* cseek = seek.c_str();
+  int fd = syscall(SYS_creat, cseek, 0755);
+  
+  char x[1] = {'x'};
+  char niks[1] = {'\0'};
+
+  syscall(SYS_write, fd, x, 1);
+  syscall(SYS_lseek, fd, 5000000, SEEK_CUR);
+  syscall(SYS_write, fd, x, 1);
+  
+  std::string loop = "loop";
+  const char* cloop = loop.c_str();
+  int fd2 = syscall(SYS_creat, cloop, 0755);
+  
+  syscall(SYS_write, fd2, x, 1);
+  for(unsigned int i=0; i<5000000; i++){
+    syscall(SYS_write, fd2, niks, 1);}
+  syscall(SYS_write, fd2, x, 1); } 
+
+
 
 void src() // Voorbeeld: Gebruikt SYS_open en SYS_read om de source van de shell (shell.cc) te printen.
 { int fd = syscall(SYS_open, "shell.cc", O_RDONLY, 0755); // Gebruik de SYS_open call om een bestand te openen.
