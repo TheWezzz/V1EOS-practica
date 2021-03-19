@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+cd $1
+mkdir Afbeeldingen
+find *jpg -exec mv {} Afbeeldingen \;
+find *png -exec mv {} Afbeeldingen \;

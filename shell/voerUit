@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+ext=$(echo $1 | tail -c4)
+
+case $ext in
+    .py)
+    python3 $1
+    ;;
+    .sh)
+    bash $1
+    ;;
+    .cc)
+    cat $1
+    ;;
+    *)
+    echo error
+    ;;
+esac

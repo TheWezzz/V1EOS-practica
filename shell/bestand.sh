@@ -1,0 +1,1 @@
+echo dit is een bash bestand

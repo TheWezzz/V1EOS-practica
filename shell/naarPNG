@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+cd $1
+
+for file in $(ls); do
+    ext=$(echo $file | tail -c4)
+    if test $ext == "jpg"; then
+        convert $file -resize 128x128! $file.png
+    fi
+done
